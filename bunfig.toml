@@ -1,0 +1,6 @@
+[install]
+# Use npm registry for package resolution
+registry = "npm"
+
+[run]
+# Ensure bun can find npm scripts
