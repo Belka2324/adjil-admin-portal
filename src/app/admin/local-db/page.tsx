@@ -283,7 +283,7 @@ export default function LocalDatabasePage() {
                         )}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600">
-                        {new Date(u.createdAt).toLocaleDateString()}
+                        {u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '—'}
                       </td>
                       <td className="px-6 py-4">
                         {user?.id !== u.id && (
