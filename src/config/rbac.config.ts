@@ -110,6 +110,15 @@ export const ROLE_PERMISSIONS: Record<UserRole, string[]> = {
     'view_audit_logs',
     'moderate_content',
   ],
+  [UserRole.CUSTOMER]: [
+    'view_own_transactions',
+    'view_analytics',
+  ],
+  [UserRole.MERCHANT]: [
+    'view_own_transactions',
+    'view_analytics',
+    'view_merchant_details',
+  ],
 };
 
 export const ROLE_DESCRIPTIONS: Record<UserRole, string> = {
@@ -117,6 +126,8 @@ export const ROLE_DESCRIPTIONS: Record<UserRole, string> = {
   [UserRole.ADMIN]: 'Full system access and administrative controls',
   [UserRole.PARTNER]: 'Bank partner access to merchant and transaction data',
   [UserRole.SUPPORT]: 'Customer support team with limited data access',
+  [UserRole.CUSTOMER]: 'End user / customer of the BNPL service',
+  [UserRole.MERCHANT]: 'Retailer / merchant providing products or services',
 };
 
 // Portal routing based on role
@@ -125,6 +136,8 @@ export const ROLE_PORTAL: Record<UserRole, string> = {
   [UserRole.ADMIN]: '/admin/home',
   [UserRole.PARTNER]: '/partner/home',
   [UserRole.SUPPORT]: '/support/home',
+  [UserRole.CUSTOMER]: '/customer/home',
+  [UserRole.MERCHANT]: '/merchant/home',
 };
 
 // Check if role can access a specific portal

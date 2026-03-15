@@ -41,7 +41,7 @@ export function useUnifiedAuth() {
     email: string,
     phoneNumber: string,
     password: string,
-    role?: 'admin' | 'partner' | 'support'
+    role?: 'admin' | 'partner' | 'support' | 'ceo' | 'customer' | 'merchant'
   ) => {
     if (mode === 'local' && role) {
       // Local auth supports role parameter

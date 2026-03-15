@@ -18,7 +18,7 @@ export default function RegisterPage() {
     phoneNumber: '',
     password: '',
     confirmPassword: '',
-    role: 'support' as 'admin' | 'partner' | 'support',
+    role: 'support' as 'admin' | 'partner' | 'support' | 'ceo',
   });
   const [validationError, setValidationError] = useState('');
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -280,7 +280,7 @@ export default function RegisterPage() {
               name="role"
               value={formData.role}
               onChange={(e) => {
-                setFormData((prev) => ({ ...prev, role: e.target.value as 'admin' | 'partner' | 'support' }));
+                setFormData((prev) => ({ ...prev, role: e.target.value as 'admin' | 'partner' | 'support' | 'ceo' }));
                 setValidationError('');
               }}
               className="w-full mt-1 px-4 py-2 rounded-lg border border-white/20 bg-white/20 backdrop-blur-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-600"

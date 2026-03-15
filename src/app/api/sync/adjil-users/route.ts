@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
+import { UserRole } from '@/types';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -83,7 +84,7 @@ export async function POST(request: NextRequest) {
         lastName: user.name ? user.name.split(' ').slice(1).join(' ') : '',
         name: user.name || '',
         phoneNumber: user.phone || user.phoneNumber || '',
-        role: user.role === 'merchant' ? 'partner' : 'support', // Map BNPL role to admin role
+        role: user.role === 'merchant' ? UserRole.MERCHANT : UserRole.CUSTOMER,
         isActive: user.status === 'active',
         adjilRole: user.role,
         adjilStatus: user.status,

@@ -7,7 +7,9 @@ export enum UserRole {
   CEO = 'ceo',
   ADMIN = 'admin',
   PARTNER = 'partner',
-  SUPPORT = 'support'
+  SUPPORT = 'support',
+  CUSTOMER = 'customer',
+  MERCHANT = 'merchant'
 }
 
 export interface AppUser {
@@ -18,7 +20,8 @@ export interface AppUser {
   name: string;
   phone_number?: string;
   phone?: string;
-  role: 'customer' | 'merchant' | 'admin' | 'partner' | 'support' | 'ceo';
+  role: UserRole;
+  avatar?: string;
   status?: 'active' | 'inactive' | 'suspended' | 'deleted';
   balance?: number;
   outstanding?: number;

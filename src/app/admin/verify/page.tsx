@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { DashboardLayout } from '@/components/layout';
 import { Card } from '@/components/common/Cards';
@@ -45,7 +45,7 @@ interface VerificationData {
   };
 }
 
-export default function VerifyPage() {
+function VerifyContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user } = useUnifiedAuth();
@@ -500,5 +500,19 @@ export default function VerifyPage() {
         )}
       </div>
     </DashboardLayout>
+  );
+}
+
+export default function VerifyPage() {
+  return (
+    <Suspense fallback={
+      <DashboardLayout>
+        <div className="flex items-center justify-center h-screen">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        </div>
+      </DashboardLayout>
+    }>
+      <VerifyContent />
+    </Suspense>
   );
 }

@@ -5,9 +5,12 @@
 import { UserRole } from '@/types';
 
 export const ROLE_ROUTES: Record<UserRole, string> = {
-  [UserRole.ADMIN]: '/dashboard',
+  [UserRole.CEO]: '/ceo/home',
+  [UserRole.ADMIN]: '/admin/home',
   [UserRole.PARTNER]: '/merchants',
   [UserRole.SUPPORT]: '/customers',
+  [UserRole.CUSTOMER]: '/customers',
+  [UserRole.MERCHANT]: '/merchants',
 };
 
 /**
