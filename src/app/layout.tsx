@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="en" dir="ltr">
       <head>
         {/* Content Security Policy - Allow connections to Supabase */}
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co; img-src 'self' data: https://*.supabase.co https://*.google-analytics.com; frame-src 'self' https://*.supabase.co;" />
+        <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co; img-src 'self' data: https://*.supabase.co https://*.google-analytics.com; frame-src 'self' https://*.supabase.co;" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <LocalAuthProvider>

@@ -54,15 +54,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           const { data, error } = await supabase
             .from('users')
             .select('*')
-            .eq('id', session.user.id)
-            .single();
+            .eq('id', session.user.id);
 
           if (error) throw error;
-          setUser(data as AppUser);
+          
+          if (data && data.length > 1) {
+            console.warn('Multiple users found for id:', session.user.id, 'Using the first user.');
+          }
+
+          setUser(data && data.length > 0 ? data[0] as AppUser : null);
         }
       } catch (err) {
-        console.error('Auth check failed:', err);
-        setError(err instanceof Error ? err.message : 'Authentication failed');
+                const errorMessage = (err as any)?.message || JSON.stringify(err);
+        console.error('Auth check failed:', errorMessage);
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }
@@ -75,9 +80,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const {
         data: { subscription },
       } = supabase.auth.onAuthStateChange(async (event: any, session: any) => {
-        if (session?.user) {
-          const { data } = await supabase.from('users').select('*').eq('id', session.user.id).single();
-          setUser(data as AppUser);
+                if (session?.user) {
+          const { data, error } = await supabase.from('users').select('*').eq('id', session.user.id);
+          
+          if (error) {
+            console.error('Error fetching user on auth state change:', error);
+            setUser(null);
+            return;
+          }
+
+          if (data && data.length > 1) {
+            console.warn('Multiple users found for id:', session.user.id, 'Using the first user.');
+          }
+
+          setUser(data && data.length > 0 ? data[0] as AppUser : null);
         } else {
           setUser(null);
         }
