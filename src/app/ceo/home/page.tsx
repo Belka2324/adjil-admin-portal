@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { DashboardLayout } from '@/components/layout';
 import { Card } from '@/components/common/Cards';
 import { useUnifiedAuth } from '@/hooks/useUnifiedAuth';
-import { UserRole, hasPermission } from '@/config/rbac.config';
 import { 
   Users, 
   Store, 
@@ -28,6 +27,24 @@ interface DashboardStats {
   newCustomersThisMonth: number;
 }
 
+interface RecentActivity {
+  id: number;
+  action: string;
+  merchant?: string;
+  customer?: string;
+  amount?: string;
+  time: string;
+  type: 'merchant' | 'customer' | 'transaction' | 'dispute';
+}
+
+interface PendingRegistration {
+  id: number;
+  type: 'merchant' | 'customer';
+  name: string;
+  email: string;
+  date: string;
+}
+
 export default function CEOHomePage() {
   const { user, loading: authLoading } = useUnifiedAuth();
   const [stats, setStats] = useState<DashboardStats>({
@@ -38,8 +55,8 @@ export default function CEOHomePage() {
     newMerchantsThisMonth: 0,
     newCustomersThisMonth: 0,
   });
-  const [recentActivity, setRecentActivity] = useState<any[]>([]);
-  const [pendingRegistrations, setPendingRegistrations] = useState<any[]>([]);
+  const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([]);
+  const [pendingRegistrations, setPendingRegistrations] = useState<PendingRegistration[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

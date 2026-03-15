@@ -34,6 +34,7 @@ async function verifyAuth(request: NextRequest): Promise<{ authenticated: boolea
     
     return { authenticated: true, userId: user.id, role };
   } catch (err) {
+    console.error('Error verifying auth:', err);
     return { authenticated: false };
   }
 }
@@ -64,6 +65,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ users }, { status: 200 });
   } catch (err) {
+    console.error('API Error:', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -161,6 +163,7 @@ export async function PATCH(request: NextRequest) {
     
     return NextResponse.json({ user: updatedUser }, { status: 200 });
   } catch (err) {
+    console.error('API Error:', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -204,6 +207,7 @@ export async function DELETE(request: NextRequest) {
     
     return NextResponse.json({ message: 'User deleted successfully' }, { status: 200 });
   } catch (err) {
+    console.error('API Error:', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

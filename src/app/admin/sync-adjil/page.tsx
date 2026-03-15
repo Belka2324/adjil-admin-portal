@@ -205,7 +205,7 @@ export default function AdjilSyncManagementPage() {
                       colSpan={5}
                       className="px-6 py-8 text-center text-gray-500"
                     >
-                      No users synced yet. Click "Sync Now" to import users from
+                      No users synced yet. Click &quot;Sync Now&quot; to import users from
                       Adjil.BNPL
                     </td>
                   </tr>
@@ -289,7 +289,7 @@ export default function AdjilSyncManagementPage() {
               <li className="flex items-start space-x-3">
                 <span className="text-blue-600 font-bold">•</span>
                 <span>
-                  Manual sync can be triggered anytime using the "Sync Now"
+                  Manual sync can be triggered anytime using the &quot;Sync Now&quot;
                   button
                 </span>
               </li>

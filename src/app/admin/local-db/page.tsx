@@ -15,22 +15,19 @@ import {
 import { AppUser } from '@/types';
 import { Trash2, Settings, Download, RefreshCw, Plus } from 'lucide-react';
 
+interface Stats {
+  totalUsers: number;
+  adminUsers: number;
+  partnerUsers: number;
+  activeSessions: number;
+}
+
 export default function LocalDatabasePage() {
   const { user, loading: authLoading } = useLocalAuth();
   const router = useRouter();
   const [users, setUsers] = useState<AppUser[]>([]);
-  const [stats, setStats] = useState<any>(null);
+  const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(false);
-  const [showAddUser, setShowAddUser] = useState(false);
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-    password: '',
-    confirmPassword: '',
-    role: 'support',
-  });
 
   // Protect route - only admins
   useEffect(() => {
@@ -254,7 +251,7 @@ export default function LocalDatabasePage() {
                 {users.length === 0 ? (
                   <tr>
                     <td colSpan={6} className="px-6 py-8 text-center text-gray-500">
-                      No users yet. Click "Seed Test Data" to create test users.
+                      No users yet. Click &quot;Seed Test Data&quot; to create test users.
                     </td>
                   </tr>
                 ) : (

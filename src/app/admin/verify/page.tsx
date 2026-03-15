@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { DashboardLayout } from '@/components/layout';
 import { Card } from '@/components/common/Cards';
 import { useUnifiedAuth } from '@/hooks/useUnifiedAuth';
+import Image from 'next/image';
 import { 
   Store, 
   User, 
@@ -54,7 +55,6 @@ function VerifyContent() {
   const [actionLoading, setActionLoading] = useState(false);
   const [showRejectModal, setShowRejectModal] = useState(false);
   const [rejectReason, setRejectReason] = useState('');
-  const [rejectDocuments, setRejectDocuments] = useState<File[]>([]);
   const [selectedDocument, setSelectedDocument] = useState<string | null>(null);
 
   const type = searchParams.get('type') as 'merchant' | 'customer';
@@ -288,10 +288,11 @@ function VerifyContent() {
                 >
                   {data.documents.idFront ? (
                     <>
-                      <img 
+                      <Image 
                         src={data.documents.idFront} 
                         alt="ID Front" 
-                        className="w-full h-full object-cover"
+                        layout="fill"
+                        objectFit="cover"
                       />
                       <div className="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition flex items-center justify-center">
                         <Eye className="text-white" size={24} />
@@ -315,10 +316,11 @@ function VerifyContent() {
                 >
                   {data.documents.idBack ? (
                     <>
-                      <img 
+                      <Image 
                         src={data.documents.idBack} 
                         alt="ID Back" 
-                        className="w-full h-full object-cover"
+                        layout="fill"
+                        objectFit="cover"
                       />
                       <div className="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition flex items-center justify-center">
                         <Eye className="text-white" size={24} />
@@ -343,10 +345,11 @@ function VerifyContent() {
                   >
                     {data.documents.commercialRegister ? (
                       <>
-                        <img 
+                        <Image 
                           src={data.documents.commercialRegister} 
                           alt="Commercial Register" 
-                          className="w-full h-full object-cover"
+                          layout="fill"
+                          objectFit="cover"
                         />
                         <div className="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition flex items-center justify-center">
                           <Eye className="text-white" size={24} />
@@ -372,10 +375,11 @@ function VerifyContent() {
                   >
                     {data.documents.rib ? (
                       <>
-                        <img 
+                        <Image 
                           src={data.documents.rib} 
                           alt="RIB" 
-                          className="w-full h-full object-cover"
+                          layout="fill" 
+                          objectFit="cover"
                         />
                         <div className="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition flex items-center justify-center">
                           <Eye className="text-white" size={24} />
@@ -399,10 +403,11 @@ function VerifyContent() {
                     className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-200 transition relative overflow-hidden"
                     onClick={() => setSelectedDocument(data.documents.payslip || null)}
                   >
-                    <img 
+                    <Image 
                       src={data.documents.payslip} 
                       alt="Payslip" 
-                      className="w-full h-full object-cover"
+                      layout="fill"
+                      objectFit="cover"
                     />
                     <div className="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition flex items-center justify-center">
                       <Eye className="text-white" size={24} />
@@ -491,9 +496,11 @@ function VerifyContent() {
             >
               <X size={24} />
             </button>
-            <img 
+            <Image 
               src={selectedDocument} 
               alt="Document" 
+              width={800}
+              height={600}
               className="max-w-full max-h-full object-contain"
             />
           </div>

@@ -12,7 +12,7 @@ if (!supabaseUrl || !supabaseServiceKey) {
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 // GET: Fetch all users from Adjil.BNPL
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     // Fetch all users from Adjil.BNPL users table
     // Note: BNPL uses 'status' (active/inactive) not 'isActive'
@@ -49,6 +49,18 @@ export async function GET(request: NextRequest) {
   }
 }
 
+interface AdjilUser {
+  id: string;
+  email: string;
+  name: string;
+  phone?: string;
+  phoneNumber?: string;
+  role: string;
+  status: string;
+  balance: number;
+  credit_limit: number;
+}
+
 // POST: Sync specific users to admin portal
 export async function POST(request: NextRequest) {
   try {
@@ -77,7 +89,7 @@ export async function POST(request: NextRequest) {
 
     // Create or update user mappings in admin_user_sync table
     if (adjilUsers && adjilUsers.length > 0) {
-      const syncData = adjilUsers.map((user: any) => ({
+      const syncData = adjilUsers.map((user: AdjilUser) => ({
         adjilUserId: user.id,
         email: user.email,
         firstName: user.name ? user.name.split(' ')[0] : '',

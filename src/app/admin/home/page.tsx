@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Card } from '@/components/common/Cards';
 import { useUnifiedAuth } from '@/hooks/useUnifiedAuth';
+import Image from 'next/image';
 import { 
   Users, 
   Database, 
@@ -27,20 +28,6 @@ export default function AdminHomePage() {
   });
   const [usersList, setUsersList] = useState<AppUser[]>([]);
 
-  useEffect(() => {
-    if (isDemoMode) {
-      const users = JSON.parse(localStorage.getItem('adjil_users') || '[]');
-      setStats({
-        totalUsers: users.length,
-        adminUsers: users.filter((u: any) => u.role === 'admin').length,
-        activeUsers: Object.keys(JSON.parse(localStorage.getItem('adjil_sessions') || '{}')).length
-      });
-      setUsersList(users);
-    } else {
-      fetchUsers();
-    }
-  }, [isDemoMode]);
-
   async function fetchUsers() {
     try {
       const res = await fetch('/api/users');
@@ -48,9 +35,24 @@ export default function AdminHomePage() {
       if (json.users) setUsersList(json.users);
       else setUsersList([]);
     } catch (err) {
+      console.error('Failed to fetch users:', err);
       setUsersList([]);
     }
   }
+
+  useEffect(() => {
+    if (isDemoMode) {
+      const users = JSON.parse(localStorage.getItem('adjil_users') || '[]');
+      setStats({
+        totalUsers: users.length,
+        adminUsers: users.filter((u: AppUser) => u.role === 'admin').length,
+        activeUsers: Object.keys(JSON.parse(localStorage.getItem('adjil_sessions') || '{}')).length
+      });
+      setUsersList(users);
+    } else {
+      fetchUsers();
+    }
+  }, [isDemoMode]);
 
   const handleLogout = async () => {
     await logout();
@@ -80,7 +82,7 @@ export default function AdminHomePage() {
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-orange-500 rounded-full flex items-center justify-center overflow-hidden">
-                <img src="/Logo%20AD.png" alt="Logo" className="w-10 h-10 object-cover" />
+                <Image src="/Logo%20AD.png" alt="Logo" width={40} height={40} className="object-cover" />
               </div>
               <h1 className="text-2xl font-bold text-gray-900">Admin Portal</h1>
             </div>
@@ -117,7 +119,7 @@ export default function AdminHomePage() {
         {user && (
           <div className="mb-8">
             <h2 className="text-3xl font-bold text-gray-900">Welcome back, {user.firstName}! 👋</h2>
-            <p className="text-gray-600 mt-2">Here's what's happening with your admin portal</p>
+            <p className="text-gray-600 mt-2">Here&apos;s what&apos;s happening with your admin portal</p>
           </div>
         )}
 
