@@ -20,7 +20,8 @@ import {
 
 export default function AdminHomePage() {
   const router = useRouter();
-  const { user, logout, isDemoMode } = useUnifiedAuth();
+  const { user, logout, isDemoMode, loading: authLoading } = useUnifiedAuth();
+  const [isMounted, setIsMounted] = useState(false);
   const [stats, setStats] = useState({
     totalUsers: 0,
     adminUsers: 0,
@@ -41,6 +42,7 @@ export default function AdminHomePage() {
   }
 
   useEffect(() => {
+    setIsMounted(true);
     if (isDemoMode) {
       const users = JSON.parse(localStorage.getItem('adjil_users') || '[]');
       setStats({
@@ -59,7 +61,24 @@ export default function AdminHomePage() {
     router.push('/login');
   };
 
-  if (!user && typeof window !== 'undefined') {
+  // Prevent hydration mismatch by waiting until mounted
+  if (!isMounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  if (!user) {
     // إذا لم يكن هناك مستخدم بعد انتهاء التحميل، توجه إلى صفحة تسجيل الدخول
     return (
       <div className="min-h-screen flex items-center justify-center">

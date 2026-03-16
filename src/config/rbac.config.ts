@@ -136,8 +136,8 @@ export const ROLE_PORTAL: Record<UserRole, string> = {
   [UserRole.ADMIN]: '/admin/home',
   [UserRole.PARTNER]: '/partner/home',
   [UserRole.SUPPORT]: '/support/home',
-  [UserRole.CUSTOMER]: '/customer/home',
-  [UserRole.MERCHANT]: '/merchant/home',
+  [UserRole.CUSTOMER]: '/customers/home',
+  [UserRole.MERCHANT]: '/merchants/home',
 };
 
 // Check if role can access a specific portal
